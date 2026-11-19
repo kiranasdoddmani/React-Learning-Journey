@@ -1,0 +1,75 @@
+React :-
+  React is an JavaScript FrameWork , React is Made-Up of Components (Functions)
+    These Components may be a Small Piece of Code or large Piece of Code
+
+    React is Used for Building a UserInterface
+
+    In React Contains JSX (JavaScript Extension Syntax)
+      JSX Means Write HTML inside the JS
+
+   JSX is not an Pure JavaScript Code 
+      In React Interanlly Use an Babel 
+       Babel Which is Used to Convert JSX in-to JavaScript
+
+   Commands :-  We use vite in latest Version for React Bcz it is Fast and Durable
+      npm create vite@latest
+
+   Components :-
+     Components means Functions 
+      Which are ReUseable and Independent Piece of Code
+
+  Import and Export :-
+        Import means bringing code, functions, components, or libraries from another file or package into the current file so that we can use them
+
+     Export :-
+      Export means making a function, variable, component, or class available so that other files can use it
+
+      By Default We Use Two Types of Exports :-
+         * Default Export
+         * Named Export         
+
+ Default Export :-
+   Default Export Which is Used to Export only One Functions
+
+ Named Export:-
+   Which Helps to Export Multiple Components    
+      
+        
+        Writing Markup in JSX:-
+    * Return a Single root Element
+    * Close the all the tags
+    * CamelCase Most of Things
+
+
+    In React, the most important concepts you should learn are Components, Props, State, Hooks, and Events
+
+      Props :-
+        Props are Used to transmit a data or information That passes through a JSX-tags 
+          or
+        Props are used to passing a Parameters 
+
+      Components :-
+         Components Menas functions Which are ReUseable
+          A component can be Small Piece of code or Large Piece of Code
+
+      State :-
+        State Which Used to Store Data or information,When user Change State Value the component will re-renders
+         and the value also changed in UserInterface
+
+     Hooks:-
+         Hooks are Built-in Functions in React like UseState ,UseEffect and UseContext etc..
+
+      UseState:-
+       Which is Used to Store Data or Information, UseState which Contains two Elements
+        first is intialState and UpdateState Both State are Stored in the Form of Array's  
+
+         let[intialState,UpdateState]=UseState();  -> InitilizationState 
+
+      UseEffect:-
+       Which is used to perform side-effects in functionl-components 
+          UseEffect also Contain two Elements i.e one is Functions and Anothor one is Depenedecies
+
+          UseEffect(function(),Depenedecies);
+
+      Events :-
+        Events are used to handle the Actions By clicking a Elements       

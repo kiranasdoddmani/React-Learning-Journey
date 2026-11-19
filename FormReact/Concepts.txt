@@ -1,0 +1,367 @@
+Form.jsx:-
+Form Which is Used to Controlled-Components
+  const[formData,setFormData]=useState("");
+
+  <form>
+            <input type="text" placeholder="username" value={formData}/>
+            <button>Submit</button>
+          </form>
+
+  Why we use value={} in input filed in form 
+    :- we used bcz to connect the useState by written in value={formData}
+
+    When we Use value attribute we must use one-more attribute ie onChange={}
+     onChange -> it track the Value ,Which contain one Special Event i.e {event.target.value}
+
+    In Form:-
+     if we want to print Some-thing on Console we use event.preventDefault(); 
+
+     Label:-
+       in javaScript if we want to Connect input and label field we id and for attribute
+        But in React doesn't use for attribute it use htmlfor="" attribute and in input it use id attribute
+
+
+        Here We Facing One Problem i.e :-
+        Creating Multiple State and Event-Methods
+        const[formData,setFormData]=useState("");
+    const[PassformData,setPassFormData]=useState("");
+
+            let updateChanges=(event)=>{
+            //  console.log(event.target.value);
+            setFormData(event.target.value);
+            }
+     let updatePassWord=(event)=>{
+    //  console.log(event.target.value);
+    setPassFormData(event.target.value);
+    }
+
+    So we Pass an Multiple state in the form of Objects
+         
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+  Form1.jsx :-
+
+     Here we write Code instead of writing a multiple State we use create ObjectState and Instead of writing multiple methods we write a one method
+
+      with help of assigning a name="" attribute in input and fieldname name method
+
+      * name="username"
+
+      *  let updateChanges=(event)=>{
+        let fieldname=event.target.name;   // name="username"
+        let newvalue=event.target.value;
+    }
+
+
+    
+    event.target.name -> which feild is onChange
+    event.target.value ->  New value of feild
+
+    let updateChanges=(event)=>{
+
+        let fieldname=event.target.name;   // name="username"
+        let newvalue=event.target.value;
+
+    }
+
+    <form  onSubmit={preventDefault}>
+            <label htmlFor="username">Username:</label>
+            <input type="text" placeholder="username"  
+            value={formData.username} 
+            onChange={updateChanges} 
+            id="username" />
+                                                   -->     name="username"
+            &nbsp;
+            <button>Submit</button>
+
+   Means if input feild has some change those change can be tracked with help of { name="username" } attribute and we must name attribute value from the state
+             const[formData,setFormData]=useState({                              -------------------
+        username:"",
+        password:""
+    });
+ 
+
+  let fieldname=event.target.name;   // name="username"
+        let newvalue=event.target.value;
+ this two lines Menas name will detect the change if we want assign value i.e newvalue
+           
+
+
+            let fieldname=event.target.name;   // name="username"
+             let newvalue=event.target.value;
+            setFormData((currdata)=>{
+              currdata[fieldname]=newvalue;
+              return{...currdata};
+           })            --> this code will assign newvalue to state
+  
+                      or 
+
+           return{...currdata,[fieldname]:newvalue}; 
+
+                or
+                setFormData((currdata)=>{
+              return{...currdata,[event.target.name]:event.target.value};            
+           })
+              
+    ---------------------------------------------------------------------------------------------------------------------------
+
+      Activity :-
+        CommentsForm :-
+                 here is Simple Code the Challenge part is make a connection b/w Comment and CommentForm Component
+
+
+             Step 1:- addnewcomment(formData);  -> this line will pass recently stored data to Comment functions Here They Excecute it.
+
+            Step 2:- <Comment addnewcomment={addNewComment}/>
+
+             Step 3:- let addNewComment=(comment)=>{
+                    setComment((currComment)=>[
+                        ...currComment,comment        // comment → Adds the new comment at the end of the array.
+                    ])   
+                    }
+
+             Step 4:-     Added 
+             {comment.map((comments,idx) =>(
+                     <div key={idx}>
+                        <span> (remarks={comments.remarks}) </span>
+                <br />
+                <span>{comments.username}</span>
+                &nbsp;
+                <br />
+                <span>(rating={comments.rating})</span>
+              </div>  
+             ))}
+
+
+               Flow:-
+               Let's trace it:
+
+                    1. Parent passes the function to Child:
+                    <Comment addnewcomment={addNewComment} />
+
+
+                    2. Child receives the function:
+                    function Comment({ addnewcomment }) 
+
+
+                    3. When you submit the form:
+                    addnewcomment(formData);
+
+
+                    Here, the child sends the new form data by calling the parent's function.
+
+                    4. Parent receives the data and updates its array:
+                    let addNewComment = (comment) => {
+                        setComment((currComment) => [
+                            ...currComment,
+                            comment
+                        ]);
+                    };
+
+
+                    Remember this data flow:
+                    Parent Component
+
+                    Passes function to Child
+
+                    Child Component
+
+                    User enters a new comment
+
+                    Parent Component
+
+                    Receives data and updates comments array
+
+
+  ----------------------------------------------------------------------------------------------------------------------------------------------------  
+
+ CommentFormValidation:-
+
+   Validations:-
+            Validation Menas to Check Wheather incoming data is Valid or Not 
+
+          For React-Form we Use an Built-in Package i.e formik Package  
+           * formik Which provides an Built-in Validations 
+
+     Validations Menas in rating we give max value is 5 ,if we Enter a value more than 5,it show some validation i.e the number should be 5 
+                i.e default-validation
+
+    Here we Don't use useState Bcz formik will automatically handle useState and Methods
+    
+    // let UpdateChange=(event)=>{
+    //    setFormData((currData)=>{
+    //     return{...currData,[event.target.name]:event.target.value};
+    //    })
+    // }
+
+    // let SubmitChange=(event)=>{
+    //       event.preventDefault();
+
+    //       addnewcomment(formData);            // this line will pass recently stored data to Comment functions Here They Excecute it.
+          
+    //       console.log("Form was Submitted");
+    //       setFormData({
+    //         username:"",
+    //     remarks:"",
+    //     rating:""
+    //       })
+    // }
+
+--> Don't write above code in formik Bcz it will automatically handle by this line
+                 { onSubmit={formik.handleSubmit} }
+
+
+
+ import { useFormik } from 'formik';
+
+ const validate = values => {
+   const errors = {};
+   if (!values.username) {
+     errors.username = 'Username Can Not be Empty';
+   } 
+   return errors;
+ };
+
+ function Comment({addnewcomment}){
+   const formik = useFormik({
+     initialValues: {
+       username: '',
+       remarks: '',
+       rating: '',
+     },
+     validate,
+     onSubmit: values => {
+       alert(JSON.stringify(values, null, 2));
+     },
+   });}
+
+   onSubmit={formik.handleSubmit}
+   value={formik.values.username}
+   onChange={formik.handleChange}s
+    {formik.errors.username ? <div style={{color:"red"}}>{formik.errors.username}</div> : null}
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Counter.jsx:- 
+
+ useEffect :-
+    useEffect is an anthor Hook 
+ useEffect which act as side-effects in function-Components
+   
+    useEffect :-
+
+ * useEffect(function sideeffect() {
+    console.log("this is a side-effect");
+});
+      useEffect usually contain two elements 
+       one is function and anthor one is dependecies
+
+     -->  useEffect(function,dependecies);
+-------------------------------------------------------------------------------------------
+       import { useEffect, useState } from "react"
+
+function counter(){
+    let[count,setCount]=useState(0);
+
+    let CountChange=()=>{
+        setCount((count)=>{
+           return count+1;
+        })
+    }
+
+  useEffect(function sideeffect() {
+    console.log("this is a side-effect");
+});
+
+    return (
+        <>
+         <h1>Counter</h1>
+             <p>count={count}</p>
+             <button onClick={CountChange}>+1</button>
+        </>
+    )
+}
+
+export default counter;
+
+-------------------------------------------
+ When we Increase-Count :-
+     In the State is Re-render, when state is re-render in console the use-effect will print 
+
+
+      Dependecies :-
+       import { useEffect, useState } from "react"
+
+function counter(){
+    let[countx,setCountx]=useState(0);
+    let[county,setCounty]=useState(0);
+
+    let CountChangex=()=>{
+        setCountx((count)=>{
+           return count+1;
+        })
+    }
+
+    let CountChangey=()=>{
+        setCounty((count)=>{
+           return count+1;
+        })
+    }
+
+  useEffect(function sideeffect() {
+    console.log("this is a side-effect");
+},
+[countx]
+);
+
+    return (
+        <>
+         <h1>CounterX</h1>
+             <p>countX={countx}</p>
+             <button onClick={CountChangex}>+1</button>
+
+              <h1>CounterY</h1>
+             <p>countY={county}</p>
+             <button onClick={CountChangey}>+1</button>
+             
+        </>
+    )
+}
+
+export default counter;
+
+ Here we use Two State and two-method 
+   if we want to Print or Excecute only one on Console we use dependecies in useEffect      
+    
+  *  useEffect(function sideeffect() {
+        console.log("this is a side-effect");
+    },
+    [countx]
+    );
+     
+        [countx]-> is an Dependecies means when we write this on useEffect ,in Console when we click on countX 
+                               then  console.log("this is a side-effect"); print on
+
+  -----------------------------------------------------------------------------------------------------------------------------------
+
+JokerAPI.jsx :-
+
+    UseCases of useEffect :- 
+              Using API Calls      
+
+               useEffect(() => {
+                  getNewJoke();
+              }, []);         
+
+       Calling getNewJoke function and [] empty dependecies
+
+       we use empty dependencies [] in useEffect() when we want the code inside useEffect
+         to run only once after the component first appears on the screen.           
+
+         Means When your React component opens on the screen for the first time, React calls the API one time automatically
+
+     Simple:- Fetch a joke automatically when the page first loads, not every time the component re-renders.
+
+  IMP :- 
+     { means When we open browser one joke will appear on UserInterface(Screen) with help of dependecies [] }
