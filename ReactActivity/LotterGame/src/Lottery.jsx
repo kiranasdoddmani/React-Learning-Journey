@@ -5,7 +5,8 @@ import Ticket from "./Ticket";
 function LotteryGame({n,winning}){
     let[ticket,setTicket]=useState(genTicket(n));
 
-    let isWinnig=winning(ticket);
+     let isWinnig=winning(ticket);
+   
 
     let buyticket=()=>{
         setTicket(genTicket(n));
